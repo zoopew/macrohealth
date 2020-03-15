@@ -33,7 +33,7 @@ ggplot(food,aes(Carb...g.))+geom_histogram(fill="#036635")+labs(x= 'Carb',y = 'C
 # Diabetic patients are recommended to eat between 25g-50g of fiber daily and 45g-75g of carbs per meal. Filter for menu items with >10g of fiber and 45g-75g of carbs
 ```{r}
 diabetesfoods <- filter(food, Fiber..g.>10) %>% filter(between(Carb...g.,45,75))
-diabetesfoods
+head(diabetesfoods)
 ```
 
 # Drinks filtering
@@ -56,6 +56,6 @@ ggplot(drinks,aes(Protein..g.))+geom_histogram(fill="#036635")+labs(x= 'Protein'
 # Filter for drinks with < 35g of sugar and >5g of protein
 ```{r}
 diabetedrinks <- filter(drinks, Sugars..g. < 35) %>% filter(Protein..g. > 5)
-diabetedrinks
+head(diabetedrinks)
 ```
 
