@@ -1,0 +1,60 @@
+---
+title: "CHOW"
+author: "Zoe Yang"
+date: "15/03/2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(ggthemes)
+```
+
+# Food filtering
+```{r}
+food <- read.csv("food.csv")
+head(food)
+```
+
+# Assess fiber levels in menu items - right of red line indicates fiber levels >10g
+```{r}
+ggplot(food,aes(Fiber..g.))+geom_histogram(fill="#036635")+labs(x= 'Fiber',y = 'Count', title = paste("Distribution of Fiber")) +theme_classic()+geom_vline(xintercept = 10, linetype="dotted", color = "red", size=1.0)
+```
+
+# Assess carb levels in menu items - right of red line indicates carb levels greater than 60g
+```{r}
+ggplot(food,aes(Carb...g.))+geom_histogram(fill="#036635")+labs(x= 'Carb',y = 'Count', title = paste("Distribution of Carbs")) +theme_classic()+geom_vline(xintercept = 60, linetype="dotted", color = "red", size=1.0)
+```
+
+
+# Diabetic patients are recommended to eat between 25g-50g of fiber daily and 45g-75g of carbs per meal. Filter for menu items with >10g of fiber and 45g-75g of carbs
+```{r}
+diabetes <- filter(food, Fiber..g.>10) %>% filter(between(Carb...g.,45,75))
+diabetes
+```
+
+# Drinks filtering
+```{r}
+drinks <- read.csv("starbucks_drinkMenu_expanded.csv")
+head(drinks)
+summary(drinks)
+```
+
+# Asses sugar level - right of red line indicates sugar levels >35g
+```{r}
+ggplot(drinks,aes(Sugars..g.))+geom_histogram(fill="#036635")+labs(x= 'Sugars',y = 'Count', title = paste("Distribution of Sugars")) +theme_classic()+ geom_vline(xintercept = 35, linetype="dotted", color = "red", size=1.0)
+```
+
+# Asses protein level 
+```{r}
+ggplot(drinks,aes(Protein..g.))+geom_histogram(fill="#036635")+labs(x= 'Protein',y = 'Count', title = paste("Distribution of Protein")) +theme_classic()
+```
+
+# Filter for drinks with < 35g of sugar and >5g of protein
+```{r}
+filter(drinks, Sugars..g. < 35) %>% filter(Protein..g. > 5)
+```
+
